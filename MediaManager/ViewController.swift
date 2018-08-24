@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Photos
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -22,13 +22,29 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         super.touchesBegan(touches, with: event)
 //        SystemMediaPicker.share.selectImage().pickImageCompletedHandler = {image in// 系统方式获取照片
 //            print(image)
 //        }
-        DDImagePickerAlert.alert().completedHandle = {assets in//自定义获取图片
+        DDImagePickerAlert.alert()?.completedHandle = {assets in//自定义获取图片
             print(assets)
         }
+//        PHPhotoLibrary.requestAuthorization { authorizationStatus in
+//            switch authorizationStatus {
+//            case .authorized:
+//            case .notDetermined:
+//                break
+//            case .denied:
+//                break
+//            case .restricted:
+//                break
+//                
+//            default:
+//                break
+//            }
+//        }
+
     }
 
 }

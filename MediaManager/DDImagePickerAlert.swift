@@ -42,8 +42,60 @@ class DDImagePickerAlert: DDAlertContainer {
             self.remove()
         }
     }
-    static func alert(superView : UIView? = nil) -> DDImagePickerAlert{
+    static func alert(superView : UIView? = nil) -> DDImagePickerAlert?{
+        
         let pickerAlert = DDImagePickerAlert()
+        
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized:
+            self.configPickerAlert(pickerAlert: pickerAlert, superView: superView)
+            return pickerAlert
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { authorizationStatus in}
+            return nil
+        case .denied:
+            
+            let alertVC = UIAlertController.init(title: "前往设置中心开启相册访问权限", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+            let cancleAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.cancel) { (action ) in
+                
+            }
+            let confirmAction = UIAlertAction.init(title: "确定", style: UIAlertActionStyle.destructive) { (action ) in
+                
+                let url : URL = URL(string: UIApplicationOpenSettingsURLString)!
+                if UIApplication.shared.canOpenURL(url ) {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            alertVC.addAction(cancleAction)
+            alertVC.addAction(confirmAction)
+            UIApplication.shared.keyWindow?.rootViewController?.present(alertVC, animated: true , completion: nil )
+            
+            
+          
+            return nil
+        case .restricted:
+            PHPhotoLibrary.requestAuthorization { authorizationStatus in}
+            return nil 
+        }
+
+//        pickerAlert.alpha = 0
+//        pickerAlert.backgroundColor = UIColor.lightGray.withAlphaComponent(pickerAlert.backgroundColorAlpha)
+//        if let superview = superView{
+//            superview.addSubview(pickerAlert)
+//            pickerAlert.frame = superview.bounds
+//        }else if let window = UIApplication.shared.keyWindow{
+//            window.addSubview(pickerAlert)
+//            pickerAlert.frame = window.bounds
+//        }
+//        
+//        UIView.animate(withDuration: 0.3) {
+//            pickerAlert.alpha = 1
+//        }
+        
+    }
+    
+    private static func configPickerAlert(pickerAlert : DDImagePickerAlert , superView:UIView?) {
+        
         pickerAlert.alpha = 0
         pickerAlert.backgroundColor = UIColor.lightGray.withAlphaComponent(pickerAlert.backgroundColorAlpha)
         if let superview = superView{
@@ -57,7 +109,6 @@ class DDImagePickerAlert: DDAlertContainer {
         UIView.animate(withDuration: 0.3) {
             pickerAlert.alpha = 1
         }
-        return pickerAlert
     }
     
     required init?(coder aDecoder: NSCoder) {
