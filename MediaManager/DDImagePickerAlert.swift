@@ -10,7 +10,7 @@ import UIKit
 
 class DDImagePickerAlert: DDAlertContainer {
     var completedHandle : ((_ images : [PHAsset]?) -> Void)?
-    
+    let titleLabel = UILabel()
     let confirm = UIButton()
     let cancle = UIButton()
     let imgPicker =  DDImagePicker.init(frame: CGRect(x: 0, y: 0, width: 350, height: 600))
@@ -21,10 +21,15 @@ class DDImagePickerAlert: DDAlertContainer {
         self.addSubview(imgPicker)
         self.addSubview(confirm)
         self.addSubview(cancle)
+        self.addSubview(titleLabel)
         confirm.setTitle("确定", for: UIControlState.normal)
         cancle.setTitle("取消", for: UIControlState.normal)
-        confirm.backgroundColor = .orange
-        cancle.backgroundColor = .orange
+        confirm.setTitleColor(UIColor.lightGray, for: UIControlState.normal)
+        cancle.setTitleColor(UIColor.lightGray, for: UIControlState.normal)
+        
+        titleLabel.text = "照片"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 19)
         confirm.addTarget(self , action: #selector(buttonClick(sender:)), for: UIControlEvents.touchUpInside)
         cancle.addTarget(self , action: #selector(buttonClick(sender:)), for: UIControlEvents.touchUpInside)
     }
@@ -63,15 +68,22 @@ class DDImagePickerAlert: DDAlertContainer {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let buttonW : CGFloat = 94
-        let buttonX : CGFloat = (self.bounds.width - buttonW * 2 ) / 3
+        let buttonW : CGFloat = 64
+        
         let topMargin : CGFloat = 24
         let bottomMargin : CGFloat = 36
         let buttonH : CGFloat = 44
-        let buttonY  = self.bounds.height - buttonH - bottomMargin
-        self.cancle.frame = CGRect(x: buttonX, y: buttonY , width: buttonW, height: buttonH)
-        self.confirm.frame = CGRect(x: self.cancle.frame.maxX + buttonX, y: buttonY, width: buttonW, height: buttonH)
-        self.imgPicker.frame = CGRect(x: 0, y: topMargin, width: self.bounds.width, height: self.confirm.frame.minY - topMargin )
+        var buttonY  : CGFloat = 0
+        if let windowBounds  = UIApplication.shared.keyWindow?.bounds , let superviewBounds = self.superview?.bounds , windowBounds.width == superviewBounds.width , windowBounds.height == superviewBounds.height {
+            buttonY  = DDNavigationBarHeight - 44
+        }else{
+            buttonY = 0
+        }
+        self.cancle.frame = CGRect(x: 0, y: buttonY , width: buttonW, height: buttonH)
+        self.confirm.frame = CGRect(x: self.bounds.width - buttonW, y: buttonY, width: buttonW, height: buttonH)
+        self.titleLabel.frame = CGRect(x: self.cancle.frame.maxX, y: buttonY, width: self.confirm.frame.minX - self.cancle.frame.maxX, height: buttonH)
+        
+        self.imgPicker.frame = CGRect(x: 0, y: self.titleLabel.frame.maxY, width: self.bounds.width, height: self.bounds.height - self.titleLabel.frame.maxY )
         self.backgroundColor = .white
     }
 

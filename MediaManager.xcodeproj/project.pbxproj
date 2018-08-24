@@ -20,6 +20,8 @@
 		157D66B4212FA7C6008B2E3D /* DDAlertOrSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157D66B2212FA7C6008B2E3D /* DDAlertOrSheet.swift */; };
 		157D66B6212FA816008B2E3D /* DDImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157D66B5212FA816008B2E3D /* DDImagePicker.swift */; };
 		157D66B8212FA8CE008B2E3D /* DDImagePickerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157D66B7212FA8CE008B2E3D /* DDImagePickerAlert.swift */; };
+		157D66BA212FE66A008B2E3D /* DDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157D66B9212FE66A008B2E3D /* DDDevice.swift */; };
+		157D66BC212FE672008B2E3D /* PCH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157D66BB212FE672008B2E3D /* PCH.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		157D66B2212FA7C6008B2E3D /* DDAlertOrSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDAlertOrSheet.swift; sourceTree = "<group>"; };
 		157D66B5212FA816008B2E3D /* DDImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDImagePicker.swift; sourceTree = "<group>"; };
 		157D66B7212FA8CE008B2E3D /* DDImagePickerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDImagePickerAlert.swift; sourceTree = "<group>"; };
+		157D66B9212FE66A008B2E3D /* DDDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDDevice.swift; sourceTree = "<group>"; };
+		157D66BB212FE672008B2E3D /* PCH.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCH.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +101,11 @@
 		157D66B0212FA7A5008B2E3D /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				157D66B9212FE66A008B2E3D /* DDDevice.swift */,
 				157D66B1212FA7C6008B2E3D /* DDAlertController.swift */,
 				157D66B5212FA816008B2E3D /* DDImagePicker.swift */,
 				157D66B2212FA7C6008B2E3D /* DDAlertOrSheet.swift */,
+				157D66BB212FE672008B2E3D /* PCH.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -179,8 +185,10 @@
 				157D66B4212FA7C6008B2E3D /* DDAlertOrSheet.swift in Sources */,
 				157D66AF212FA768008B2E3D /* SystemMediaPicker.swift in Sources */,
 				157D66AD212FA739008B2E3D /* String+extension.swift in Sources */,
+				157D66BA212FE66A008B2E3D /* DDDevice.swift in Sources */,
 				157D66B8212FA8CE008B2E3D /* DDImagePickerAlert.swift in Sources */,
 				157D66A8212FA6D8008B2E3D /* MediaManager.swift in Sources */,
+				157D66BC212FE672008B2E3D /* PCH.swift in Sources */,
 				157D6696212FA6BB008B2E3D /* AppDelegate.swift in Sources */,
 				157D66AC212FA739008B2E3D /* UIColor+Extension.swift in Sources */,
 				157D66B3212FA7C6008B2E3D /* DDAlertController.swift in Sources */,

@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.green
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -22,12 +23,12 @@ class ViewController: UIViewController {
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        SystemMediaPicker.share.selectImage().pickImageCompletedHandler = {image in// 系统方式获取照片
-            print(image)
-        }
-//        DDImagePickerAlert.alert().completedHandle = {assets in//自定义获取图片
-//            print(assets)
+//        SystemMediaPicker.share.selectImage().pickImageCompletedHandler = {image in// 系统方式获取照片
+//            print(image)
 //        }
+        DDImagePickerAlert.alert().completedHandle = {assets in//自定义获取图片
+            print(assets)
+        }
     }
 
 }
