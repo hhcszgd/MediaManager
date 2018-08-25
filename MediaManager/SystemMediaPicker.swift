@@ -17,24 +17,14 @@ class SystemMediaPicker: NSObject {
     var pickImageCompletedHandler : ((_ image: UIImage?) -> Void)?
     var pickMovieCompletedHandler : ((_ data: Data?) -> Void)?
     func selectImage() -> SystemMediaPicker{
-//        if style == .system {
-            selectPhotoBySystem()
-//        }else if style == .custom{
-//            selectPhotoByCustom()
-//        }
+        selectPhotoBySystem()
+        return SystemMediaPicker.share
+    }
+    func selectMovie() -> SystemMediaPicker{ // TODO
+        selectPhotoBySystem(mediaType : 2)
         return SystemMediaPicker.share
     }
 }
-
-
-
-
-extension SystemMediaPicker   {//customStyle
-    private func selectPhotoByCustom(){
-        
-    }
-}
-
 
 
 
@@ -47,18 +37,18 @@ import MobileCoreServices
 extension SystemMediaPicker  : UIImagePickerControllerDelegate , UINavigationControllerDelegate  {//systemStyle
     
     
-    private func selectPhotoBySystem(){
+    private func selectPhotoBySystem(mediaType : Int = 1/*1是照片 , 2 是视频*/){
         let alertVC  = UIAlertController.init(title: nil , message: nil , preferredStyle: UIAlertControllerStyle.actionSheet)
         let alertAction1 = UIAlertAction.init(title: "拍摄", style: UIAlertActionStyle.default) { (action ) in
             
-            self.setupCarame(type: 1)
+            self.setupCarame(type: 1, mediaType :mediaType/*1是照片 , 2 是视频*/)
             alertVC.dismiss(animated: true , completion: {
                 //调用相机
             })
         }
         let alertAction2 = UIAlertAction.init(title: "相册", style: UIAlertActionStyle.default) { (action ) in
             
-            self.setupCarame(type: 2)
+            self.setupCarame(type: 2 , mediaType : mediaType/*1是照片 , 2 是视频*/)
             alertVC.dismiss(animated: true , completion: {
                 //调用本地相册库
             })
@@ -104,7 +94,7 @@ extension SystemMediaPicker  : UIImagePickerControllerDelegate , UINavigationCon
     
     
     
-    private func setupCarame (type : Int /**1 拍摄 , 2本地相册*/)  {//调用系统相机
+    private func setupCarame (type : Int /**1 拍摄 , 2本地相册*/ , mediaType : Int = 1/*1是照片 , 2 是视频*/)  {//调用系统相机
         //return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
         //        if (!UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.rear ) || !UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.front )){
         //            GDAlertView.alert("摄像头不可用", image: nil , time: 2, complateBlock: nil)//摄像头专属
@@ -132,7 +122,12 @@ extension SystemMediaPicker  : UIImagePickerControllerDelegate , UINavigationCon
             picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         }
         //        picker.mediaTypes = [kUTTypeMovie as String , kUTTypeVideo as String , kUTTypeImage as String  , kUTTypeJPEG as String , kUTTypePNG as String]//kUTTypeMPEG4
-        picker.mediaTypes = [kUTTypeImage as String  , kUTTypeJPEG as String , kUTTypePNG as String]//只要图片
+        if mediaType == 1 {
+            picker.mediaTypes = [kUTTypeImage as String  , kUTTypeJPEG as String , kUTTypePNG as String]//只要图片
+        }else{
+            picker.mediaTypes = [kUTTypeMovie as String , kUTTypeVideo as String ]//kUTTypeMPEG4
+        }
+        
         
         //        picker.allowsEditing = true ;
         picker.videoMaximumDuration = 12
